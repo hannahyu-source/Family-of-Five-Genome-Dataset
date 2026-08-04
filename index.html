@@ -15,10 +15,12 @@
     --text-gray: #9aa3ad;
     --divider: rgba(255,255,255,0.09);
     --dot: rgba(255,255,255,0.14);
+    --rail-width: 1.79rem;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html { font-size: 100%; }
   html, body { background: var(--bg); }
 
   body {
@@ -26,56 +28,20 @@
     color: var(--text-white);
     line-height: 1.55;
     word-break: keep-all;
-    padding: 56px 64px 56px 96px;
     position: relative;
     overflow-x: hidden;
   }
 
-  /* ---------- left rail ---------- */
-  .side-rail {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 26px;
-    height: 100vh;
-    background: var(--red);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 20;
-  }
-  .side-rail span {
-    display: inline-block;
-    transform: rotate(-90deg);
-    white-space: nowrap;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.25em;
-    color: rgba(18, 22, 29, 0.55);
-  }
+  /* ============ mobile-first base (기본값 = 모바일) ============ */
 
-  /* ---------- decorative dot grid ---------- */
-  .dot-grid {
-    position: absolute;
-    top: 40px;
-    right: 56px;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
-    width: 110px;
-    pointer-events: none;
-  }
-  .dot-grid span {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--dot);
-  }
+  /* ---------- left rail & dot-grid: 데스크탑 전용 장식 요소, 모바일에서는 숨김 ---------- */
+  .side-rail { display: none; }
+  .dot-grid { display: none; }
 
   /* ---------- editable fields ---------- */
   [contenteditable] {
     outline: none;
-    border-radius: 6px;
+    border-radius: 0.44rem;
     transition: background 0.15s ease, box-shadow 0.15s ease;
   }
   [contenteditable]:hover { background: rgba(255, 255, 255, 0.05); }
@@ -86,61 +52,63 @@
     opacity: 0.6;
   }
 
-  .wrap { max-width: 1440px; margin: 0 auto; }
+  .page-content { padding: 1.93rem 1.38rem 3.3rem; }
+
+  .wrap { max-width: 75rem; margin: 0 auto; width: 100%; }
 
   .eyebrow {
     display: inline-block;
-    font-size: 13px;
+    font-size: 0.83rem;
     font-weight: 700;
     color: var(--red);
-    letter-spacing: 0.03em;
-    margin-bottom: 18px;
-    padding: 2px 6px;
+    letter-spacing: 0.01em;
+    margin-bottom: 0.5rem;
+    padding: 0.14rem 0.41rem;
   }
 
   h1 {
-    font-size: 56px;
+    font-size: 2.04rem;
     font-weight: 900;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
     color: var(--green);
-    margin-bottom: 14px;
-    padding: 2px 6px;
+    margin-bottom: 0.4rem;
+    padding: 0.14rem 0.41rem;
     display: block;
     min-height: 1.15em;
   }
 
   .subtitle {
-    font-size: 16px;
+    font-size: 0.99rem;
     font-weight: 500;
+    letter-spacing: -0.01em;
     color: var(--blue);
-    margin-bottom: 48px;
-    padding: 2px 6px;
+    margin-bottom: 1rem;
+    padding: 0.14rem 0.41rem;
     display: block;
   }
 
-  /* ---------- main layout ---------- */
+  /* ---------- main layout: 모바일 = 세로 1열 ---------- */
   .main-layout {
-    display: grid;
-    grid-template-columns: 1fr 260px;
-    gap: 56px;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    gap: 2.75rem;
   }
 
   .items-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 44px 40px;
+    grid-template-columns: 1fr;
+    gap: 2.2rem;
   }
 
   .item-head {
     display: flex;
     align-items: baseline;
-    gap: 10px;
-    margin-bottom: 14px;
+    gap: 0.69rem;
+    margin-bottom: 0.96rem;
   }
 
   .item-num {
-    font-size: 56px;
+    font-size: 2.2rem;
     font-weight: 900;
     color: var(--red);
     line-height: 1;
@@ -148,10 +116,10 @@
   }
 
   .item-title {
-    font-size: 21px;
+    font-size: 1.27rem;
     font-weight: 800;
     color: var(--text-white);
-    padding: 2px 6px;
+    padding: 0.14rem 0.41rem;
   }
 
   .bullets {
@@ -161,8 +129,8 @@
 
   .bullets li {
     position: relative;
-    padding: 3px 0 3px 15px;
-    font-size: 13.5px;
+    padding: 0.22rem 0 0.22rem 1.05rem;
+    font-size: 0.99rem;
     color: var(--text-gray);
   }
 
@@ -170,41 +138,41 @@
     content: "";
     position: absolute;
     left: 0;
-    top: 12px;
-    width: 4px;
-    height: 4px;
+    top: 0.86rem;
+    width: 0.275rem;
+    height: 0.275rem;
     border-radius: 50%;
     background: var(--red);
   }
 
   .bullets b { color: var(--text-white); font-weight: 700; }
 
-  /* ---------- sidebar ---------- */
+  /* ---------- sidebar: 모바일 = 상단 구분선만 ---------- */
   .sidebar {
-    border-left: 1px solid var(--divider);
-    padding-left: 40px;
+    border-top: 1px solid var(--divider);
+    padding-top: 2.2rem;
   }
 
   .sidebar-title {
-    font-size: 13px;
+    font-size: 0.83rem;
     font-weight: 700;
     letter-spacing: 0.18em;
     color: var(--text-gray);
-    margin-bottom: 22px;
+    margin-bottom: 1.51rem;
   }
 
   .submit-item {
     display: grid;
-    grid-template-columns: 32px 1fr;
-    gap: 14px;
-    padding: 16px 0;
+    grid-template-columns: 2.2rem 1fr;
+    gap: 0.96rem;
+    padding: 1.1rem 0;
     border-bottom: 1px solid var(--divider);
     align-items: start;
   }
   .submit-item:first-child { padding-top: 0; }
 
   .submit-num {
-    font-size: 20px;
+    font-size: 1.27rem;
     font-weight: 800;
     color: var(--red);
     line-height: 1.3;
@@ -213,15 +181,21 @@
   .submit-body { text-align: right; }
 
   .submit-name {
-    font-size: 14.5px;
+    font-size: 0.99rem;
     font-weight: 700;
     color: var(--text-white);
-    padding: 2px 4px;
+    padding: 0.14rem 0.28rem;
+  }
+
+  .file-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.275rem;
   }
 
   .file-status {
-    margin-top: 4px;
-    font-size: 12.5px;
+    margin-top: 0.275rem;
+    font-size: 0.86rem;
     cursor: pointer;
   }
 
@@ -240,9 +214,9 @@
     background: none;
     color: var(--text-gray);
     cursor: pointer;
-    font-size: 13px;
+    font-size: 0.88rem;
     line-height: 1;
-    padding: 0 0 0 6px;
+    padding: 0 0 0 0.41rem;
     opacity: 0.6;
   }
   .file-remove:hover { opacity: 1; }
@@ -250,17 +224,81 @@
 
   .file-input { display: none; }
 
-  @media (max-width: 1100px) {
-    .main-layout { grid-template-columns: 1fr; }
-    .sidebar { border-left: none; border-top: 1px solid var(--divider); padding-left: 0; padding-top: 32px; }
+  /* ============ 태블릿 이상 (Tailwind md: 상당, 48rem = 768px) ============ */
+  @media (min-width: 48rem) {
+    .page-content { padding: 2.75rem 2.2rem 3.85rem; }
+    h1 { font-size: 2.75rem; }
+    .subtitle { font-size: 1.1rem; }
     .items-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
-  @media (max-width: 640px) {
-    body { padding: 48px 24px 48px 56px; }
-    h1 { font-size: 38px; }
-    .items-grid { grid-template-columns: 1fr; }
-    .dot-grid { display: none; }
+  /* ============ 데스크탑 (Tailwind lg: 상당, 64rem = 1024px 이상) ============ */
+  @media (min-width: 64rem) {
+    body { padding-left: var(--rail-width); }
+
+    /* 좌측 세로 레일 + 우측 상단 점 그리드 장식 노출 */
+    .side-rail {
+      display: flex;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: var(--rail-width);
+      height: 100vh;
+      background: var(--red);
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+    }
+    .side-rail span {
+      display: inline-block;
+      transform: rotate(-90deg);
+      white-space: nowrap;
+      font-size: 0.77rem;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      color: rgba(18, 22, 29, 0.55);
+    }
+
+    .dot-grid {
+      display: grid;
+      position: absolute;
+      top: 2.75rem;
+      right: 3.85rem;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.55rem;
+      width: 7.56rem;
+      pointer-events: none;
+    }
+    .dot-grid span {
+      width: 0.344rem;
+      height: 0.344rem;
+      border-radius: 50%;
+      background: var(--dot);
+    }
+
+    .page-content { padding: 3.85rem 4.4rem; }
+
+    h1 { font-size: 3.85rem; }
+
+    .main-layout {
+      display: grid;
+      grid-template-columns: 1fr 17.875rem;
+      gap: 3.85rem;
+      align-items: start;
+    }
+
+    .items-grid { grid-template-columns: repeat(3, 1fr); gap: 3.03rem 2.75rem; }
+
+    .item-num { font-size: 3.85rem; }
+    .item-title { font-size: 1.43rem; }
+    .bullets li { font-size: 0.92rem; }
+
+    .sidebar {
+      border-top: none;
+      border-left: 1px solid var(--divider);
+      padding-top: 0;
+      padding-left: 2.75rem;
+    }
   }
 </style>
 </head>
@@ -273,15 +311,18 @@
     <span></span><span></span><span></span><span></span><span></span><span></span>
   </div>
 
+  <div class="page-content">
   <div class="wrap">
-    <div class="eyebrow" contenteditable="true" data-field="eyebrow" data-placeholder="데이터 기반 분석 및 인사이트 도출 보고서 작성">데이터 기반 분석 및 인사이트 도출 보고서 작성</div>
-    <h1 contenteditable="true" data-field="title" data-placeholder="제목을 입력하세요">Family of Five – Genome Dataset</h1>
-    <p class="subtitle" contenteditable="true" data-field="subtitle" data-placeholder="부제목을 입력하세요">Zeeshan-ul-hassan Usmani's Genome Phenotype SNPs Raw Data</p>
+    <div id="overview">
+      <div class="eyebrow" contenteditable="true" data-field="eyebrow" data-placeholder="데이터 기반 분석 및 인사이트 도출 보고서 작성">데이터 기반 분석 및 인사이트 도출 보고서 작성</div>
+      <h1 contenteditable="true" data-field="title" data-placeholder="제목을 입력하세요">Family of Five – Genome Dataset</h1>
+      <p class="subtitle" contenteditable="true" data-field="subtitle" data-placeholder="부제목을 입력하세요">Zeeshan-ul-hassan Usmani's Genome Phenotype SNPs Raw Data</p>
+    </div>
 
     <div class="main-layout">
       <div class="items-grid">
 
-        <div class="item">
+        <div class="item" id="item-01">
           <div class="item-head">
             <span class="item-num">01</span>
             <span class="item-title" contenteditable="true" data-field="item1-title" data-placeholder="항목 제목">데이터 분석</span>
@@ -293,7 +334,7 @@
           </ul>
         </div>
 
-        <div class="item">
+        <div class="item" id="item-02">
           <div class="item-head">
             <span class="item-num">02</span>
             <span class="item-title" contenteditable="true" data-field="item2-title" data-placeholder="항목 제목">분석 질문</span>
@@ -306,7 +347,7 @@
           </ul>
         </div>
 
-        <div class="item">
+        <div class="item" id="item-03">
           <div class="item-head">
             <span class="item-num">03</span>
             <span class="item-title" contenteditable="true" data-field="item3-title" data-placeholder="항목 제목">데이터 사전</span>
@@ -321,7 +362,7 @@
           </ul>
         </div>
 
-        <div class="item">
+        <div class="item" id="item-04">
           <div class="item-head">
             <span class="item-num">04</span>
             <span class="item-title" contenteditable="true" data-field="item4-title" data-placeholder="항목 제목">전처리 로그</span>
@@ -335,7 +376,7 @@
           </ul>
         </div>
 
-        <div class="item">
+        <div class="item" id="item-05">
           <div class="item-head">
             <span class="item-num">05</span>
             <span class="item-title" contenteditable="true" data-field="item5-title" data-placeholder="항목 제목">시각화</span>
@@ -349,7 +390,7 @@
           </ul>
         </div>
 
-        <div class="item">
+        <div class="item" id="item-06">
           <div class="item-head">
             <span class="item-num">06</span>
             <span class="item-title" contenteditable="true" data-field="item6-title" data-placeholder="항목 제목">인사이트</span>
@@ -363,28 +404,24 @@
 
       </div>
 
-      <div class="sidebar">
+      <div class="sidebar" id="submit-files">
         <div class="sidebar-title" contenteditable="true" data-field="sidebar-title" data-placeholder="SUBMIT FILES">SUBMIT FILES</div>
 
-        <div class="submit-item has-file" data-id="s1">
+        <div class="submit-item" data-id="s1">
           <span class="submit-num">01</span>
           <div class="submit-body">
             <div class="submit-name title-trigger" contenteditable="true" data-field="s1-name" data-placeholder="항목 이름">데이터셋</div>
-            <div class="file-status">
-              <span class="file-status-text">📎 Family Genome.csv</span><button type="button" class="file-remove" aria-label="파일 제거">×</button>
-            </div>
-            <input type="file" class="file-input" hidden="">
+            <div class="file-list"></div>
+            <input type="file" class="file-input" hidden multiple>
           </div>
         </div>
 
-        <div class="submit-item has-file" data-id="s2">
+        <div class="submit-item" data-id="s2">
           <span class="submit-num">02</span>
           <div class="submit-body">
             <div class="submit-name title-trigger" contenteditable="true" data-field="s2-name" data-placeholder="항목 이름">전처리 코랩 파일</div>
-            <div class="file-status">
-              <span class="file-status-text">📎 가족_유전체_데이터_전처리.ipynb</span><button type="button" class="file-remove" aria-label="파일 제거">×</button>
-            </div>
-            <input type="file" class="file-input" hidden="">
+            <div class="file-list"></div>
+            <input type="file" class="file-input" hidden multiple>
           </div>
         </div>
 
@@ -392,37 +429,32 @@
           <span class="submit-num">03</span>
           <div class="submit-body">
             <div class="submit-name title-trigger" contenteditable="true" data-field="s3-name" data-placeholder="항목 이름">시각화 대시보드</div>
-            <div class="file-status empty">
-              <span class="file-status-text">Upload</span><button type="button" class="file-remove" aria-label="파일 제거">×</button>
-            </div>
-            <input type="file" class="file-input" hidden="">
+            <div class="file-list"></div>
+            <input type="file" class="file-input" hidden multiple>
           </div>
         </div>
 
-        <div class="submit-item has-file" data-id="s4">
+        <div class="submit-item" data-id="s4">
           <span class="submit-num">04</span>
           <div class="submit-body">
             <div class="submit-name title-trigger" contenteditable="true" data-field="s4-name" data-placeholder="항목 이름">최종 보고서</div>
-            <div class="file-status">
-              <span class="file-status-text">📎 가족_유전체_최종보고서.pdf</span><button type="button" class="file-remove" aria-label="파일 제거">×</button>
-            </div>
-            <input type="file" class="file-input" hidden="">
+            <div class="file-list"></div>
+            <input type="file" class="file-input" hidden multiple>
           </div>
         </div>
 
-        <div class="submit-item has-file" data-id="s5">
+        <div class="submit-item" data-id="s5">
           <span class="submit-num">05</span>
           <div class="submit-body">
             <div class="submit-name title-trigger" contenteditable="true" data-field="s5-name" data-placeholder="항목 이름">AI와의 멀티턴</div>
-            <div class="file-status">
-              <span class="file-status-text">📎 AI와의_멀티턴_대화_요약.md</span><button type="button" class="file-remove" aria-label="파일 제거">×</button>
-            </div>
-            <input type="file" class="file-input" hidden="">
+            <div class="file-list"></div>
+            <input type="file" class="file-input" hidden multiple>
           </div>
         </div>
 
       </div>
     </div>
+  </div>
   </div>
 
   <script>
@@ -456,107 +488,134 @@
       }
     });
 
-    /* ---- 제출 항목별 파일 업로드 / 열기 ---- */
+    /* ---- 제출 항목별 파일 업로드 / 열기 (항목당 여러 개 첨부 가능) ---- */
     const FILES_KEY = 'wiset-practice-guide-files-v3';
-    const DEFAULT_FILES = {
-      s1: { name: 'archive.zip', type: 'application/zip', url: 'uploads/archive.zip' }
-    };
-    let files = Object.assign({}, DEFAULT_FILES);
-    try {
-      const stored = JSON.parse(localStorage.getItem(FILES_KEY)) || {};
-      files = Object.assign({}, DEFAULT_FILES, stored);
-    } catch (e) {}
-    const sessionFileUrls = {};
+    let files = {};
+    try { files = JSON.parse(localStorage.getItem(FILES_KEY)) || {}; } catch (e) { files = {}; }
 
-    function updateFileStatus(id) {
-      const rec = files[id] || sessionFileUrls[id];
-      const container = document.querySelector('.submit-item[data-id="' + id + '"]');
-      if (!container) return;
-      const statusEl = container.querySelector('.file-status');
-      const textEl = statusEl.querySelector('.file-status-text');
-      if (rec) {
-        textEl.textContent = '📎 ' + rec.name;
-        statusEl.classList.remove('empty');
-        container.classList.add('has-file');
-      } else {
-        textEl.textContent = 'Upload';
-        statusEl.classList.add('empty');
-        container.classList.remove('has-file');
+    /* 이전 버전(항목당 파일 1개) 데이터를 배열 형태로 이관 */
+    Object.keys(files).forEach(id => {
+      if (files[id] && !Array.isArray(files[id])) files[id] = [files[id]];
+    });
+
+    /* 데이터셋(01) 항목: 지금 업로드한 5개 가족 유전체 CSV로 설정 */
+    files.s1 = [
+      { name: 'Father Genome.csv', type: 'text/csv', url: 'uploads/Father%20Genome.csv' },
+      { name: 'Mother Genome.csv', type: 'text/csv', url: 'uploads/Mother%20Genome.csv' },
+      { name: 'Child 1 Genome.csv', type: 'text/csv', url: 'uploads/Child%201%20Genome.csv' },
+      { name: 'Child 2 Genome.csv', type: 'text/csv', url: 'uploads/Child%202%20Genome.csv' },
+      { name: 'Child 3 Genome.csv', type: 'text/csv', url: 'uploads/Child%203%20Genome.csv' }
+    ];
+
+    /* 전처리 코랩 파일(02) 항목: 지금 업로드한 노트북으로 설정 */
+    files.s2 = [
+      { name: '가족_유전체_데이터_전처리.ipynb', type: 'application/x-ipynb+json', dataUrl: 'data:application/x-ipynb+json;base64,ew0KICJjZWxscyI6IFsNCiAgew0KICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsDQogICAiaWQiOiAiMzZiNDY3MDUiLA0KICAgIm1ldGFkYXRhIjoge30sDQogICAic291cmNlIjogIiMg6rCA7KGxIOycoOyghOyytChGYW1pbHkgb2YgRml2ZSkg642w7J207YSwIOyghOyymOumrCDrhbjtirjrtoFcblxu7J20IOuFuO2KuOu2geydgCAyM2FuZE1lIHJhdyBnZW5vdHlwZSDtjIzsnbwgNeqwnChGYXRoZXIgLyBNb3RoZXIgLyBDaGlsZCAxIC8gQ2hpbGQgMiAvIENoaWxkIDMp66W8IOuMgOyDgeycvOuhnCDri6TsnYwg7J6R7JeF7J2EIOyInOyEnOuMgOuhnCDsp4Ttlontlanri4jri6QuXG5cbjEuIOudvOydtOu4jOufrOumrCDspIDruYQg67CPIO2MjOydvCDsl4XroZzrk5xcbjIuIOybkOyekOujjCDroZzrk5wg7ZWo7IiYIOygleydmCAo7KO87ISdIO2XpOuNlCDsspjrpqwpXG4zLiAqKuuNsOydtO2EsOyCrOyghCoqIOyekeyEsSDigJQgU05QIOy0neqwnOyImCwg7Je87IOJ7LK067OEIOu2hO2PrCwg7Jyg7KCE7J6Q7ZiVIOq1rOyEsSjrj5ntmJUv7J207ZiVL+uwmOygke2VqSksIOqysOy4oShuby1jYWxsKSDruYTsnKgsIOyEseuzhCDstpTsoJVcbjQuICoq7KCE7LKY66asKiog4oCUIO2DgOyehSDrs4DtmZgsIOqysOy4oS/rhbjsvZwg7ZSM656Y6re4LCDsnbTtmJXsoJHtlakg7YyM7IOdIOy7rOufvCwg7KSR67O1IOygnOqxsFxuNS4gKipyc2lkIOq4sOykgCA16rCcIO2MjOydvCDrs5HtlakqKiDigJQg6rCA7KGxIOq1rOyEseybkCDqsIQg67mE6rWQ66W8IOychO2VnCDtlbXsi6wg64uo6rOEXG42LiDqsrDqs7wg7KCA7J6lICjrjbDsnbTthLDsgqzsoIQgQ1NWLCDsoITsspjrpqwg66Gc6re4LCDrs5Htlakg7YWM7J2067iUKVxuXG4+IEdvb2dsZSBDb2xhYuyXkOyEnCDsnITsl5DshJwg7JWE656Y66GcIOyInOyEnOuMgOuhnCDshYDsnYQg7Iuk7ZaJ7ZWY66m0IOuQqeuLiOuLpC4g6rCBIOyFgCDsnIQg7ISk66qFKOuniO2BrOuLpOyatCnsnYQg66i87KCAIOydveqzoCDsi6TtlontlbQg7KO87IS47JqULiINCiAgfSwNCiAgew0KICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsDQogICAiaWQiOiAiNmVmOWFhODgiLA0KICAgIm1ldGFkYXRhIjoge30sDQogICAic291cmNlIjogIiMjIDHri6jqs4QuIOudvOydtOu4jOufrOumrCDspIDruYRcblxu7J20IOuFuO2KuOu2geydgCBgcGFuZGFzYCwgYG51bXB5YOunjCDsgqzsmqntlanri4jri6QuIEdvb2dsZSBDb2xhYuyXkOuKlCDquLDrs7jsnLzroZwg7ISk7LmY65CY7Ja0IOyeiOyWtCDrs4Trj4Qg7ISk7LmY6rCAIO2VhOyalCDsl4bsirXri4jri6QuIg0KICB9LA0KICB7DQogICAiY2VsbF90eXBlIjogImNvZGUiLA0KICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsDQogICAiaWQiOiAiMDI5MTAzMjIiLA0KICAgIm1ldGFkYXRhIjoge30sDQogICAib3V0cHV0cyI6IFtdLA0KICAgInNvdXJjZSI6ICJpbXBvcnQgcGFuZGFzIGFzIHBkXG5pbXBvcnQgbnVtcHkgYXMgbnBcbmZyb20gZnVuY3Rvb2xzIGltcG9ydCByZWR1Y2VcbmltcG9ydCBvcywgcmVcblxucGQuc2V0X29wdGlvbignZGlzcGxheS53aWR0aCcsIDIwMClcbnByaW50KFwicGFuZGFzIOuyhOyghDpcIiwgcGQuX192ZXJzaW9uX18pIg0KICB9LA0KICB7DQogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwNCiAgICJpZCI6ICJhNTAxNDMwNyIsDQogICAibWV0YWRhdGEiOiB7fSwNCiAgICJzb3VyY2UiOiAiIyMgMuuLqOqzhC4g642w7J207YSwIO2MjOydvCDsl4XroZzrk5xcblxuMjNhbmRNZSByYXcgZ2Vub3R5cGUgQ1NWIO2MjOydvCA16rCcKEZhdGhlciwgTW90aGVyLCBDaGlsZCAxLCBDaGlsZCAyLCBDaGlsZCAz7JeQIO2VtOuLue2VmOuKlCDtjIzsnbwp66W8IOyXheuhnOuTnO2VqeuLiOuLpC5cblxuLSBHb29nbGUgQ29sYWLsl5DshJwg7Iuk7ZaJIOykkeydtOuptCDslYTrnpgg7IWA7J2EIOyLpO2Wie2WiOydhCDrlYwgKirtjIzsnbwg7ISg7YOdIOuyhO2KvCoq7J20IOuCmO2DgOuCqeuLiOuLpC4gNeqwnCDtjIzsnbzsnYQg7ZWcIOuyiOyXkCDshKDtg53tlbQg7JeF66Gc65Oc7ZWY7IS47JqULlxuLSBDb2xhYuydtCDslYTri4wg66Gc7LusIEp1cHl0ZXIg7ZmY6rK97J20652866m0LCDsl4XroZzrk5wg64yA7IugIO2MjOydvOuTpOydhCDsnbQg64W47Yq467aB6rO8IOqwmeydgCDtj7TrjZTsl5Ag65GQ6rOgIOydtCDshYDsnYAg6rG064SI65uw7Ja064+EIOuQqeuLiOuLpCgz64uo6rOE7JeQ7IScIOyngeygkSDqsr3roZzrpbwg7KeA7KCVKS5cbi0g7YyM7J2866qF7JeQIOygleuLteydtCDsoJXtlbTsoLgg7J6I7KeAIOyViuyVhOuPhCDrkKnri4jri6QuIO2MjOydvOuqheyXkCBgZmF0aGVyYCwgYG1vdGhlcmAsIGBjaGlsZF8xYC9gY2hpbGQxYCwgYGNoaWxkXzJgL2BjaGlsZDJgLCBgY2hpbGRfM2AvYGNoaWxkM2Ag6rCZ7J2AIO2CpOybjOuTnOqwgCDrk6TslrQg7J6I7Jy866m0IDPri6jqs4Tsl5DshJwg7J6Q64+Z7Jy866GcIOyduOyLne2VqeuLiOuLpC4g7J247Iud7J20IOyemOuqu+uQmOuptCAz64uo6rOEIOy9lOuTnOyXkOyEnCDsp4HsoJEg66ek7ZWR7J2EIOyImOygle2VmOyEuOyalC4iDQogIH0sDQogIHsNCiAgICJjZWxsX3R5cGUiOiAiY29kZSIsDQogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwNCiAgICJpZCI6ICI5ZjM3OTVmZCIsDQogICAibWV0YWRhdGEiOiB7fSwNCiAgICJvdXRwdXRzIjogW10sDQogICAic291cmNlIjogInVwbG9hZGVkX3BhdGhzID0gW11cblxudHJ5OlxuICAgIGZyb20gZ29vZ2xlLmNvbGFiIGltcG9ydCBmaWxlc1xuICAgIHByaW50KFwiQ29sYWIg7ZmY6rK9IOqwkOyngOuQqCDigJQg7YyM7J28IOyEoO2DnSDssL3snbQg7Je066a964uI64ukLiA16rCcIENTViDtjIzsnbzsnYQg66qo65GQIOyEoO2Dne2VmOyEuOyalC5cIilcbiAgICB1cGxvYWRlZCA9IGZpbGVzLnVwbG9hZCgpXG4gICAgdXBsb2FkZWRfcGF0aHMgPSBsaXN0KHVwbG9hZGVkLmtleXMoKSlcbmV4Y2VwdCBJbXBvcnRFcnJvcjpcbiAgICBwcmludChcIkNvbGFi7J20IOyVhOuLjCDtmZjqsr3snoXri4jri6QuIO2YhOyerCDtj7TrjZQoLinsl5DshJwgQ1NWIO2MjOydvOydhCDsp4HsoJEg7LC+7Iq164uI64ukLlwiKVxuICAgIHVwbG9hZGVkX3BhdGhzID0gW2YgZm9yIGYgaW4gb3MubGlzdGRpcignLicpIGlmIGYubG93ZXIoKS5lbmRzd2l0aCgnLmNzdicpXVxuXG5wcmludChcIlxcbuyXheuhnOuTnC/rsJzqsqzrkJwg7YyM7J28OlwiKVxuZm9yIGYgaW4gdXBsb2FkZWRfcGF0aHM6XG4gICAgcHJpbnQoXCIgLVwiLCBmKSINCiAgfSwNCiAgew0KICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsDQogICAiaWQiOiAiMTUzOTc4YTQiLA0KICAgIm1ldGFkYXRhIjoge30sDQogICAic291cmNlIjogIiMjIDPri6jqs4QuIOq1rOyEseybkOuzhCDtjIzsnbwg6rK966GcIOunpO2VkVxuXG7sl4XroZzrk5zrkJwg7YyM7J2866qF7JeQ7IScIO2CpOybjOuTnOulvCDssL7slYQgRmF0aGVyL01vdGhlci9DaGlsZCAxL0NoaWxkIDIvQ2hpbGQgM+yXkCDsnpDrj5nsnLzroZwg7Jew6rKw7ZWp64uI64ukLlxu7J6Q64+ZIOunpO2VkSDqsrDqs7zqsIAg7ZmU66m07JeQIOy2nOugpeuQmOuvgOuhnCwgKirsi6Ttlokg7ZuEIOuwmOuTnOyLnCDrp6TtlZHsnbQg7Jis67CU66W47KeAIO2ZleyduCoq7ZWY7IS47JqULiDsnpjrqrsg66ek7ZWR65CQ64uk66m0IGBGSUxFU2Ag65SV7IWU64SI66as66W8IOyngeygkSDsiJjsoJXtlZjrqbQg65Cp64uI64ukLiINCiAgfSwNCiAgew0KICAgImNlbGxfdHlwZSI6ICJjb2RlIiwNCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLA0KICAgImlkIjogIjQ3ZDAzM2Y3IiwNCiAgICJtZXRhZGF0YSI6IHt9LA0KICAgIm91dHB1dHMiOiBbXSwNCiAgICJzb3VyY2UiOiAiS0VZV09SRFMgPSB7XG4gICAgJ0ZhdGhlcic6ICBbcidmYXRoZXInXSxcbiAgICAnTW90aGVyJzogIFtyJ21vdGhlciddLFxuICAgICdDaGlsZCAxJzogW3InY2hpbGRbX1xcc10/MVxcYiddLFxuICAgICdDaGlsZCAyJzogW3InY2hpbGRbX1xcc10/MlxcYiddLFxuICAgICdDaGlsZCAzJzogW3InY2hpbGRbX1xcc10/M1xcYiddLFxufVxuXG5GSUxFUyA9IHt9XG5mb3IgcGVyc29uLCBwYXR0ZXJucyBpbiBLRVlXT1JEUy5pdGVtcygpOlxuICAgIG1hdGNoID0gTm9uZVxuICAgIGZvciBmIGluIHVwbG9hZGVkX3BhdGhzOlxuICAgICAgICBmb3IgcGF0IGluIHBhdHRlcm5zOlxuICAgICAgICAgICAgaWYgcmUuc2VhcmNoKHBhdCwgZiwgcmUuSUdOT1JFQ0FTRSk6XG4gICAgICAgICAgICAgICAgbWF0Y2ggPSBmXG4gICAgICAgICAgICAgICAgYnJlYWtcbiAgICAgICAgaWYgbWF0Y2g6XG4gICAgICAgICAgICBicmVha1xuICAgIGlmIG1hdGNoOlxuICAgICAgICBGSUxFU1twZXJzb25dID0gbWF0Y2hcbiAgICBlbHNlOlxuICAgICAgICBwcmludChmXCJb6rK96rOgXSAne3BlcnNvbn0n7JeQIO2VtOuLue2VmOuKlCDtjIzsnbzsnYQg7J6Q64+Z7Jy866GcIOywvuyngCDrqrvtlojsirXri4jri6Qg4oCUIOyVhOuemOyXkOyEnCDsp4HsoJEg7KeA7KCV7ZW0IOyjvOyEuOyalC5cIilcblxucHJpbnQoXCLsnpDrj5kg66ek7ZWRIOqysOqzvDpcIilcbmZvciBwZXJzb24sIHBhdGggaW4gRklMRVMuaXRlbXMoKTpcbiAgICBwcmludChmXCIgIHtwZXJzb246OHN9IC0+IHtwYXRofVwiKVxuXG4jIOyekOuPmSDrp6TtlZHsnbQg7YuA66C464uk66m0IOyVhOuemOyymOufvCDsp4HsoJEg642u7Ja07JOw7IS47JqUICjsmIjsi5wsIO2VhOyalO2VoCDrlYzrp4wg7KO87ISdIO2VtOygnCk6XG4jIEZJTEVTWydGYXRoZXInXSAgPSAn7Iuk7KCcX+2MjOydvOuqhS5jc3YnXG4jIEZJTEVTWydNb3RoZXInXSAgPSAn7Iuk7KCcX+2MjOydvOuqhS5jc3YnXG4jIEZJTEVTWydDaGlsZCAxJ10gPSAn7Iuk7KCcX+2MjOydvOuqhS5jc3YnXG4jIEZJTEVTWydDaGlsZCAyJ10gPSAn7Iuk7KCcX+2MjOydvOuqhS5jc3YnXG4jIEZJTEVTWydDaGlsZCAzJ10gPSAn7Iuk7KCcX+2MjOydvOuqhS5jc3YnXG5cbmFzc2VydCBsZW4oRklMRVMpID09IDUsIFwiNeqwnCDtjIzsnbzsnbQg66qo65GQIOunpO2VkeuQmOyWtOyVvCDri6TsnYwg64uo6rOE66GcIOynhO2Wie2VoCDsiJgg7J6I7Iq164uI64ukLlwiIg0KICB9LA0KICB7DQogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwNCiAgICJpZCI6ICJiNjI0NGZlOSIsDQogICAibWV0YWRhdGEiOiB7fSwNCiAgICJzb3VyY2UiOiAiIyMgNOuLqOqzhC4g7JuQ7J6Q66OMIOuhnOuTnCDtlajsiJhcblxuMjNhbmRNZSByYXcg7YyM7J287J2AIO2MjOydvCDsg4Hri6jsl5AgYCNg7Jy866GcIOyLnOyeke2VmOuKlCDso7zshJ0o7ISk66qFKSDspITsnbQg7Jes65+sIOykhCDsnojqs6AsIOq3uCDslYTrnpjrtoDthLAg7Iuk7KCcIOuNsOydtO2EsOqwgCDsmLXri4jri6QuXG7rjbDsnbTthLDripQg7L2k66eI66GcIOq1rOu2hOuQmOyWtCDsnojsnLzrqbAg7Lus65+87J2AIGByc2lkYChTTlAg7Iud67OE7J6QKSwgYGNocm9tb3NvbWVgKOyXvOyDieyytCksIGBwb3NpdGlvbmAo7Je87IOJ7LK0IOyDgSDsnITsuZgpLCBgZ2Vub3R5cGVgKOycoOyghOyekO2YlSwg7JiIOiBBRykgNOqwnOyeheuLiOuLpC4iDQogIH0sDQogIHsNCiAgICJjZWxsX3R5cGUiOiAiY29kZSIsDQogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwNCiAgICJpZCI6ICJjMmFmZjFmYyIsDQogICAibWV0YWRhdGEiOiB7fSwNCiAgICJvdXRwdXRzIjogW10sDQogICAic291cmNlIjogImRlZiBsb2FkX3JhdyhwYXRoKTpcbiAgICBcIlwiXCIyM2FuZE1lIHJhdyBnZW5vdHlwZSDtjIzsnbzsnYQg66Gc65OcLiDso7zshJ0g7Zek642UKCMp64qUIOqxtOuEiOubsOqzoCA06rCcIOy7rOufvOunjCDsgqzsmqkuXCJcIlwiXG4gICAgZGYgPSBwZC5yZWFkX2NzdihwYXRoLCBjb21tZW50PScjJywgbmFtZXM9Wydyc2lkJywgJ2Nocm9tb3NvbWUnLCAncG9zaXRpb24nLCAnZ2Vub3R5cGUnXSwgbG93X21lbW9yeT1GYWxzZSlcbiAgICBkZlsnY2hyb21vc29tZSddID0gZGZbJ2Nocm9tb3NvbWUnXS5hc3R5cGUoc3RyKVxuICAgIHJldHVybiBkZlxuXG5yYXcgPSB7bmFtZTogbG9hZF9yYXcocGF0aCkgZm9yIG5hbWUsIHBhdGggaW4gRklMRVMuaXRlbXMoKX1cblxuZm9yIG5hbWUsIGRmIGluIHJhdy5pdGVtcygpOlxuICAgIHByaW50KGZcIntuYW1lOjhzfToge2xlbihkZik6PjcsfSDtlolcIikiDQogIH0sDQogIHsNCiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLA0KICAgImlkIjogImJmZDc5ZTg4IiwNCiAgICJtZXRhZGF0YSI6IHt9LA0KICAgInNvdXJjZSI6ICIjIyA164uo6rOELiDrjbDsnbTthLDsgqzsoIQoRGF0YSBEaWN0aW9uYXJ5KSDsnpHshLFcblxu6rCBIOq1rOyEseybkCDtjIzsnbzsl5Ag64yA7ZW0IOuLpOydjOydhCDqs4TsgrDtlanri4jri6QuXG5cbi0gU05QIOy0neqwnOyImCwg7Je87IOJ7LK0KDEtMjIsIFgsIFksIE1UKeuzhCDrtoTtj6xcbi0g7Jyg7KCE7J6Q7ZiVIOq1rOyEsTog64+Z7ZiV7KCR7ZWpKGhvbW96eWdvdXMsIOyYiCBBQSkgLyDsnbTtmJXsoJHtlakoaGV0ZXJvenlnb3VzLCDsmIggQUcpIC8g67CY7KCR7ZWpKGhlbWl6eWdvdXMsIFgvWS9NVOydmCDri6jsnbwg66y47J6QIOy9nCkg67mE7JyoXG4tIOqysOy4oey5mChuby1jYWxsLCBgLS1gIOuTsSnsmYAg7IK97J6FL+qysOyLpChpbmRlbCkg67mE7JyoXG4tIOyEseuzhCDstpTsoJU6IDIzYW5kTWUg7Lmp7J2AIOyDneusvO2VmeyggSDshLHrs4Tqs7wg66y06rSA7ZWY6rKMIFnsl7zsg4nssrQg7ZSE66Gc67iMIOychOy5mOulvCDtla3sg4Eg7Y+s7ZWo7ZWY66+A66GcLCDri6jsiJztnoggWe2WieydtCDsnojripTsp4DqsIAg7JWE64uI6528IOq3uCDsnITsuZjsl5DshJwgKirsnKDtmqgg7YyQ64+FKG5vLWNhbGzsnbQg7JWE64uMKSDruYTsnKgqKuuhnCDrgqjrhYDrpbwg6rWs67aE7ZWp64uI64ukLiINCiAgfSwNCiAgew0KICAgImNlbGxfdHlwZSI6ICJjb2RlIiwNCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLA0KICAgImlkIjogImM1NTY0ODFhIiwNCiAgICJtZXRhZGF0YSI6IHt9LA0KICAgIm91dHB1dHMiOiBbXSwNCiAgICJzb3VyY2UiOiAicHJvZmlsZV9yb3dzID0gW11cbmNocm9tX2Rpc3QgPSB7fVxuXG5mb3IgbmFtZSwgZGYgaW4gcmF3Lml0ZW1zKCk6XG4gICAgbl90b3RhbCA9IGxlbihkZilcbiAgICBndCA9IGRmWydnZW5vdHlwZSddLmFzdHlwZShzdHIpXG5cbiAgICBpc19ub2NhbGwgICAgPSBndC5pc2luKFsnLS0nLCAnMDAnLCAnREknLCAnSUQnXSlcbiAgICBpc19pbmRlbCAgICAgPSBndC5zdHIuY29udGFpbnMoJ0l8RCcsIHJlZ2V4PVRydWUpICYgfmlzX25vY2FsbFxuICAgIGlzX2JpYWxsZWxpYyA9IGd0LnN0ci5tYXRjaChyJ15bQUNHVF17Mn0kJylcbiAgICBpc19oZW1pICAgICAgPSBndC5zdHIubWF0Y2gocideW0FDR1RdJCcpICAgICAgICAgICMgWC9ZL01UIOuTsSDri6jsnbwg66y47J6QIOycoO2aqCDsvZxcbiAgICBpc19ob21vICAgICAgPSBpc19iaWFsbGVsaWMgJiAoZ3Quc3RyWzBdID09IGd0LnN0clsxXSlcbiAgICBpc19oZXQgICAgICAgPSBpc19iaWFsbGVsaWMgJiAoZ3Quc3RyWzBdICE9IGd0LnN0clsxXSlcblxuICAgIHlfbWFzayAgICAgICA9IGRmWydjaHJvbW9zb21lJ10gPT0gJ1knXG4gICAgbl95X3Jvd3MgICAgID0gaW50KHlfbWFzay5zdW0oKSkgICAgICAgICAgICAgICAgICAgIyDsuansl5Ag7Y+s7ZWo65CcIFkg7ZSE66Gc67iMIOyekOumrCDsiJgo7ISx67OEIOustOq0gO2VmOqyjCDtla3sg4Eg7KG07J6sKVxuICAgIG5feV92YWxpZCAgICA9IGludCgoeV9tYXNrICYgfmlzX25vY2FsbCkuc3VtKCkpICAgICAjIOq3uOykkSDsi6TsoJzroZwg7Jyg7ZqoIO2MkOuPheuQnCDsvZwg7IiYXG4gICAgcGN0X3lfdmFsaWQgID0gcm91bmQobl95X3ZhbGlkIC8gbl95X3Jvd3MgKiAxMDAsIDEpIGlmIG5feV9yb3dzIGVsc2UgMC4wXG5cbiAgICBwcm9maWxlX3Jvd3MuYXBwZW5kKHtcbiAgICAgICAgJ3BlcnNvbic6IG5hbWUsXG4gICAgICAgICduX3NucF90b3RhbCc6IG5fdG90YWwsXG4gICAgICAgICduX2Nocm9tXzFfMjInOiBkZlsnY2hyb21vc29tZSddLmlzaW4oW3N0cihpKSBmb3IgaSBpbiByYW5nZSgxLCAyMyldKS5zdW0oKSxcbiAgICAgICAgJ25fY2hyb21fWCc6IGludCgoZGZbJ2Nocm9tb3NvbWUnXSA9PSAnWCcpLnN1bSgpKSxcbiAgICAgICAgJ25fY2hyb21fWV9yb3dzJzogbl95X3Jvd3MsXG4gICAgICAgICduX2Nocm9tX1lfdmFsaWRfY2FsbHMnOiBuX3lfdmFsaWQsXG4gICAgICAgICdwY3RfY2hyb21fWV92YWxpZCc6IHBjdF95X3ZhbGlkLFxuICAgICAgICAnbl9jaHJvbV9NVCc6IGludCgoZGZbJ2Nocm9tb3NvbWUnXSA9PSAnTVQnKS5zdW0oKSksXG4gICAgICAgICduX2hvbW96eWdvdXMnOiBpbnQoaXNfaG9tby5zdW0oKSksXG4gICAgICAgICdwY3RfaG9tb3p5Z291cyc6IHJvdW5kKGlzX2hvbW8ubWVhbigpICogMTAwLCAyKSxcbiAgICAgICAgJ25faGV0ZXJvenlnb3VzJzogaW50KGlzX2hldC5zdW0oKSksXG4gICAgICAgICdwY3RfaGV0ZXJvenlnb3VzJzogcm91bmQoaXNfaGV0Lm1lYW4oKSAqIDEwMCwgMiksXG4gICAgICAgICduX2hlbWl6eWdvdXMnOiBpbnQoaXNfaGVtaS5zdW0oKSksXG4gICAgICAgICdwY3RfaGVtaXp5Z291cyc6IHJvdW5kKGlzX2hlbWkubWVhbigpICogMTAwLCAyKSxcbiAgICAgICAgJ25faW5kZWwnOiBpbnQoaXNfaW5kZWwuc3VtKCkpLFxuICAgICAgICAncGN0X2luZGVsJzogcm91bmQoaXNfaW5kZWwubWVhbigpICogMTAwLCAyKSxcbiAgICAgICAgJ25fbm9jYWxsJzogaW50KGlzX25vY2FsbC5zdW0oKSksXG4gICAgICAgICdwY3Rfbm9jYWxsJzogcm91bmQoaXNfbm9jYWxsLm1lYW4oKSAqIDEwMCwgMiksXG4gICAgICAgICMgWSDsnKDtmqjtjJDrj4Ug67mE7Jyo7J20IDIwJeulvCDrhJjsnLzrqbQg64Ko7ISx7Jy866GcLCDqsbDsnZggMCXrqbQg7Jes7ISx7Jy866GcIOy2lOyglVxuICAgICAgICAnc2V4X2luZmVycmVkJzogZifrgqjshLEgKFkg7Jyg7Zqo7YyQ64+FIHtwY3RfeV92YWxpZH0lKScgaWYgcGN0X3lfdmFsaWQgPiAyMCBlbHNlICfsl6zshLEgKFkg7KCE67aAIG5vLWNhbGwpJyxcbiAgICB9KVxuXG4gICAgY2hyb21fZGlzdFtuYW1lXSA9IGRmWydjaHJvbW9zb21lJ10udmFsdWVfY291bnRzKClcblxuZGF0YV9kaWN0aW9uYXJ5ID0gcGQuRGF0YUZyYW1lKHByb2ZpbGVfcm93cylcbmRhdGFfZGljdGlvbmFyeSINCiAgfSwNCiAgew0KICAgImNlbGxfdHlwZSI6ICJjb2RlIiwNCiAgICJleGVjdXRpb25fY291bnQiOiBudWxsLA0KICAgImlkIjogImY1MTM0NTRlIiwNCiAgICJtZXRhZGF0YSI6IHt9LA0KICAgIm91dHB1dHMiOiBbXSwNCiAgICJzb3VyY2UiOiAiIyDsl7zsg4nssrTrs4QgU05QIOqwnOyImCDtkZwgKDF+MjIsIFgsIFksIE1UIOyInCwg6rWs7ISx7JuQ67OEIOy7rOufvClcbmNocm9tX29yZGVyID0gW3N0cihpKSBmb3IgaSBpbiByYW5nZSgxLCAyMyldICsgWydYJywgJ1knLCAnTVQnXVxuY2hyb21fZGlzdHJpYnV0aW9uID0gcGQuRGF0YUZyYW1lKFxuICAgIHtuYW1lOiBbZGlzdC5nZXQoYywgMCkgZm9yIGMgaW4gY2hyb21fb3JkZXJdIGZvciBuYW1lLCBkaXN0IGluIGNocm9tX2Rpc3QuaXRlbXMoKX0sXG4gICAgaW5kZXg9Y2hyb21fb3JkZXIsXG4pXG5jaHJvbV9kaXN0cmlidXRpb24uaW5kZXgubmFtZSA9ICdjaHJvbW9zb21lJ1xuY2hyb21fZGlzdHJpYnV0aW9uIg0KICB9LA0KICB7DQogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwNCiAgICJpZCI6ICJjY2FhODNhMiIsDQogICAibWV0YWRhdGEiOiB7fSwNCiAgICJzb3VyY2UiOiAiIyMgNuuLqOqzhC4g7KCE7LKY66asIOKAlCDtg4DsnoUg67OA7ZmYIOuwjyDtlIzrnpjqt7gg7Lus65+8IOy2lOqwgFxuXG7qsIEg7YyM7J287JeQIOuMgO2VtCDri6TsnYzsnYQg7KCB7Jqp7ZWp64uI64ukLlxuXG4xLiBgY2hyb21vc29tZWDsnYQg66y47J6Q7Je066GcIOycoOyngCjsiKvsnpAg7Je87IOJ7LK07JmAIFgvWS9NVOulvCDtlajqu5gg64uk66Oo6riwIOychO2VqCksIGBwb3NpdGlvbmDsnYAg7KCV7IiY7ZiV7Jy866GcIOuzgO2ZmFxuMi4gYGdlbm90eXBlYOydtCBgLS1gIOuTseycvOuhnCDtkZzsi5zrkJwg6rKw7LihKG5vLWNhbGwpIO2WieydgCAqKuyCreygnO2VmOyngCDslYrqs6AqKiBgaXNfbm9jYWxsYCDtlIzrnpjqt7gg7Lus65+87Jy866GcIO2RnOyLnFxuMy4gYGlzX2luZGVsYCwgYGlzX2JpYWxsZWxpY2AsIGBpc19oZW1penlnb3VzYCDtlIzrnpjqt7gg7Lus65+8IOy2lOqwgFxuNC4g65GQIOuMgOumveycoOyghOyekCDrrLjsnpDqsIAg64uk66W4IOqyveyasOulvCDtkZzsi5ztlZjripQgYGlzX2hldGVyb3p5Z291c2Ag7YyM7IOdIOy7rOufvCDstpTqsIBcbjUuIHJzaWQg7KSR67O1IO2WiSDsoJzqsbAo7J6I7J2EIOqyveyasCkiDQogIH0sDQogIHsNCiAgICJjZWxsX3R5cGUiOiAiY29kZSIsDQogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwNCiAgICJpZCI6ICJhZjFlNzg5ZiIsDQogICAibWV0YWRhdGEiOiB7fSwNCiAgICJvdXRwdXRzIjogW10sDQogICAic291cmNlIjogImxvZ19saW5lcyA9IFtcIj09PSDsoITsspjrpqwg66Gc6re4ID09PVwiXVxuXG5kZWYgbG9ncChtc2cpOlxuICAgIHByaW50KG1zZylcbiAgICBsb2dfbGluZXMuYXBwZW5kKG1zZylcblxuY2xlYW4gPSB7fVxuZm9yIG5hbWUsIHBhdGggaW4gRklMRVMuaXRlbXMoKTpcbiAgICBkZiA9IGxvYWRfcmF3KHBhdGgpXG4gICAgbjAgPSBsZW4oZGYpXG5cbiAgICBkZlsncG9zaXRpb24nXSA9IHBkLnRvX251bWVyaWMoZGZbJ3Bvc2l0aW9uJ10sIGVycm9ycz0nY29lcmNlJykuYXN0eXBlKCdJbnQ2NCcpXG4gICAgZGZbJ2dlbm90eXBlJ10gPSBkZlsnZ2Vub3R5cGUnXS5hc3R5cGUoc3RyKVxuXG4gICAgZGZbJ2lzX25vY2FsbCddICAgICAgPSBkZlsnZ2Vub3R5cGUnXS5pc2luKFsnLS0nLCAnMDAnLCAnREknLCAnSUQnXSlcbiAgICBkZlsnaXNfaW5kZWwnXSAgICAgICA9IGRmWydnZW5vdHlwZSddLnN0ci5jb250YWlucygnSXxEJywgcmVnZXg9VHJ1ZSkgJiB+ZGZbJ2lzX25vY2FsbCddXG4gICAgZGZbJ2lzX2JpYWxsZWxpYyddICAgPSBkZlsnZ2Vub3R5cGUnXS5zdHIubWF0Y2gocideW0FDR1RdezJ9JCcpXG4gICAgZGZbJ2lzX2hlbWl6eWdvdXMnXSAgPSBkZlsnZ2Vub3R5cGUnXS5zdHIubWF0Y2gocideW0FDR1RdJCcpXG4gICAgZGZbJ2lzX2hldGVyb3p5Z291cyddID0gZGZbJ2lzX2JpYWxsZWxpYyddICYgKGRmWydnZW5vdHlwZSddLnN0clswXSAhPSBkZlsnZ2Vub3R5cGUnXS5zdHJbMV0pXG5cbiAgICBuX2R1cCA9IGludChkZlsncnNpZCddLmR1cGxpY2F0ZWQoKS5zdW0oKSlcbiAgICBpZiBuX2R1cDpcbiAgICAgICAgZGYgPSBkZi5kcm9wX2R1cGxpY2F0ZXMoJ3JzaWQnKVxuICAgIG4xID0gbGVuKGRmKVxuXG4gICAgbG9ncChmXCJbe25hbWV9XSDroZzrk5w6IHtuMDosfe2WiSAtPiDspJHrs7UgcnNpZCB7bl9kdXA6LH3qsbQg7KCc6rGwIC0+IHtuMTosfe2WiSDtmZXsoJUgXCJcbiAgICAgICAgIGZcIihuby1jYWxsIHtpbnQoZGZbJ2lzX25vY2FsbCddLnN1bSgpKTosfeqxtOydgCDsgq3soJztlZjsp4Ag7JWK6rOgIO2UjOuemOq3uOunjCDrtoDsl6wpXCIpXG5cbiAgICBjbGVhbltuYW1lXSA9IGRmXG5cbmNsZWFuWydGYXRoZXInXS5oZWFkKCkiDQogIH0sDQogIHsNCiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLA0KICAgImlkIjogImZlZjkyM2QzIiwNCiAgICJtZXRhZGF0YSI6IHt9LA0KICAgInNvdXJjZSI6ICIjIyA364uo6rOELiByc2lkIOq4sOykgCA16rCcIO2MjOydvCDrs5HtlalcblxuKirqsIDsobEg6rWs7ISx7JuQIOqwhCDruYTqtZDrpbwg7ZWY66Ck66m0IOydtCDri6jqs4TqsIAg7ZW17Ius7J6F64uI64ukLioqIDXqsJwg7YyM7J287J2EIGByc2lkYOulvCDquLDspIDsnLzroZwg7ZWY64KY7J2YIO2RnOuhnCDtlanss5AsIOqwmeydgCBTTlAg7JyE7LmY7JeQ7IScIOuLpOyEryDrqoXsnZgg7Jyg7KCE7J6Q7ZiV7J2EIOuCmOuegO2eiCDruYTqtZDtlaAg7IiYIOyeiOqyjCDrp4zrk63ri4jri6QuXG5cbi0g6rWs7ISx7JuQ66eI64ukIOyCrOyaqe2VnCAyM2FuZE1lIOy5qSDrsoTsoITsnbQg64us6528IHJzaWQg6rWs7ISx7J20IOyZhOyghO2eiCDqsJnsp4Ag7JWK7Jy866+A66GcICoqb3V0ZXIgam9pbijtlansp5HtlakpKiog7Jy866GcIOuzke2Vqe2VqeuLiOuLpC5cbi0gYGNocm9tb3NvbWVgL2Bwb3NpdGlvbmDsnYAg7YyM7J2866eI64ukIOqwkuydtCDqsJnslYTslbwg7KCV7IOB7J207KeA66eMLCDtmLnsi5wg64uk66W8IOqyveyasCDrqLzsoIAg65Ox7J6l7ZWcKEZhdGhlciDsmrDshKApIOqwkuydhCDsgqzsmqntlanri4jri6QuXG4tIO2MjOydtOyNrCBmb3ItbG9vcOuhnCAzMDDrp4wg6rCcIO2WieydhCDtlZjrgpjslKkg7Iic7ZqM7ZWY64qUIOuMgOyLoCwgcGFuZGFz7J2YIGBtZXJnZWAob3V0ZXIp7JmAIGBiZmlsbGDsnYQg7IKs7Jqp7ZW0IOuyoe2EsCDsl7DsgrDsnLzroZwg7LKY66as7ZW0IENvbGFi7JeQ7ISc64+EIOu5oOultOqyjCDsi6TtlonrkKnri4jri6QuIg0KICB9LA0KICB7DQogICAiY2VsbF90eXBlIjogImNvZGUiLA0KICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsDQogICAiaWQiOiAiZWRlOGYxOGQiLA0KICAgIm1ldGFkYXRhIjoge30sDQogICAib3V0cHV0cyI6IFtdLA0KICAgInNvdXJjZSI6ICIjIOq1rOyEseybkOuzhOuhnCBjaHJvbW9zb21lL3Bvc2l0aW9uL2dlbm90eXBlIOy7rOufvCDsnbTrpoTsl5Ag6rWs7ISx7JuQ66qF7J2EIOu2meyXrOyEnCDspIDruYRcbnBlcnNvbl9mcmFtZXMgPSBbXVxuZm9yIG5hbWUsIGRmIGluIGNsZWFuLml0ZW1zKCk6XG4gICAga2V5ID0gbmFtZS5yZXBsYWNlKCcgJywgJycpICAjICdDaGlsZCAxJyAtPiAnQ2hpbGQxJyAo7Lus65+866qF7JeQIOqzteuwsSDrsKnsp4ApXG4gICAgZCA9IGRmW1sncnNpZCcsICdjaHJvbW9zb21lJywgJ3Bvc2l0aW9uJywgJ2dlbm90eXBlJ11dLnJlbmFtZShjb2x1bW5zPXtcbiAgICAgICAgJ2Nocm9tb3NvbWUnOiBmJ2Nocm9tX3trZXl9JyxcbiAgICAgICAgJ3Bvc2l0aW9uJzogZidwb3Nfe2tleX0nLFxuICAgICAgICAnZ2Vub3R5cGUnOiBmJ2d0X3trZXl9JyxcbiAgICB9KVxuICAgIHBlcnNvbl9mcmFtZXMuYXBwZW5kKGQpXG5cbiMgcnNpZCDquLDspIAgb3V0ZXIg67OR7ZWpICg16rCcIO2MjOydvCDsiJzssKgg67OR7ZWpKVxubWVyZ2VkX2Z1bGwgPSByZWR1Y2UobGFtYmRhIGxlZnQsIHJpZ2h0OiBwZC5tZXJnZShsZWZ0LCByaWdodCwgb249J3JzaWQnLCBob3c9J291dGVyJyksIHBlcnNvbl9mcmFtZXMpXG5cbiMgY2hyb21vc29tZS9wb3NpdGlvbuydgCDqtazshLHsm5Ag7KSRIOuovOyggCDqsJLsnbQg7J6I64qUIOy7rOufvOydhCDsgqzsmqkgKEZhdGhlciDsmrDshKDsiJzsnIQpXG5jaHJvbV9jb2xzID0gW2MgZm9yIGMgaW4gbWVyZ2VkX2Z1bGwuY29sdW1ucyBpZiBjLnN0YXJ0c3dpdGgoJ2Nocm9tXycpXVxucG9zX2NvbHMgICA9IFtjIGZvciBjIGluIG1lcmdlZF9mdWxsLmNvbHVtbnMgaWYgYy5zdGFydHN3aXRoKCdwb3NfJyldXG5tZXJnZWRfZnVsbFsnY2hyb21vc29tZSddID0gbWVyZ2VkX2Z1bGxbY2hyb21fY29sc10uYmZpbGwoYXhpcz0xKS5pbG9jWzosIDBdXG5tZXJnZWRfZnVsbFsncG9zaXRpb24nXSAgID0gbWVyZ2VkX2Z1bGxbcG9zX2NvbHNdLmJmaWxsKGF4aXM9MSkuaWxvY1s6LCAwXVxubWVyZ2VkX2Z1bGwgPSBtZXJnZWRfZnVsbC5kcm9wKGNvbHVtbnM9Y2hyb21fY29scyArIHBvc19jb2xzKVxuXG4jIOy7rOufvCDsiJzshJwg7KCV66asOiByc2lkLCBjaHJvbW9zb21lLCBwb3NpdGlvbiwgZ3RfRmF0aGVyLCBndF9Nb3RoZXIsIGd0X0NoaWxkMSwgZ3RfQ2hpbGQyLCBndF9DaGlsZDNcbmd0X2NvbHMgPSBbYyBmb3IgYyBpbiBtZXJnZWRfZnVsbC5jb2x1bW5zIGlmIGMuc3RhcnRzd2l0aCgnZ3RfJyldXG5tZXJnZWRfZnVsbCA9IG1lcmdlZF9mdWxsW1sncnNpZCcsICdjaHJvbW9zb21lJywgJ3Bvc2l0aW9uJ10gKyBndF9jb2xzXVxuXG5uX3VuaW9uID0gbGVuKG1lcmdlZF9mdWxsKVxubl9hbGw1ID0gbWVyZ2VkX2Z1bGwuZHJvcG5hKHN1YnNldD1ndF9jb2xzKS5zaGFwZVswXVxuXG5sb2dwKGZcIlxcbjXqsJwg7YyM7J28IHJzaWQg7ZWp7KeR7ZWpOiB7bl91bmlvbjosfeqwnFwiKVxubG9ncChmXCI166qFIOyghOybkOyXkOqyjOyEnCDqs7XthrXsnLzroZwg7KG07J6s7ZWY64qUIHJzaWQo7JmE7KCEIOq1kOynke2VqSk6IHtuX2FsbDU6LH3qsJxcIilcblxubWVyZ2VkX2Z1bGwuaGVhZCgpIg0KICB9LA0KICB7DQogICAiY2VsbF90eXBlIjogImNvZGUiLA0KICAgImV4ZWN1dGlvbl9jb3VudCI6IG51bGwsDQogICAiaWQiOiAiZDQ1NDBlMmMiLA0KICAgIm1ldGFkYXRhIjoge30sDQogICAib3V0cHV0cyI6IFtdLA0KICAgInNvdXJjZSI6ICIjIOy5qSDrsoTsoIQg7LCo7J207JeQIOuMgO2VnCDssLjqs6Ag66mU66qoICjrjbDsnbTthLDsgqzsoITsl5DshJwg7ZmV7J247ZWcIOuCtOyaqeydhCDroZzqt7jsl5Ag64Ko6rmAKVxubG9ncChcIlxcblvssLjqs6BdIENoaWxkIDIvQ2hpbGQgM+uKlCBGYXRoZXIvTW90aGVyL0NoaWxkIDHqs7wg64uk66W4KOuNlCDsi6DtmJUpIDIzYW5kTWUg7Lmp7J2EIOyCrOyaqe2VnCDqsoPsnLzroZwg67O07J6F64uI64ukIFwiXG4gICAgIFwiKFNOUCDstJ3qsJzsiJjCt+ydtO2Yleygke2VqSDruYTsnKjsnbQg65GQIOq3uOujuSDqsITsl5Ag7LK06rOE7KCB7Jy866GcIOuLpOumhCAtPiDsg53rrLztlZnsoIEg7LCo7J206rCAIOyVhOuLiOudvCDsuakg7ISk6rOEIOywqOydtOydvCDqsIDriqXshLHsnbQg64aS7Jy866+A66GcLCBcIlxuICAgICBcIuq1rOyEseybkCDqsIQg7J207ZiV7KCR7ZWp64+EIOuTseydhCDruYTqtZDtlaAg65WM64qUIOydtCDsoJDsnYQg6rCQ7JWI7ZW07JW8IO2VqeuLiOuLpCkuXCIpXG5wcmludChcIuyZhOujjFwiKSINCiAgfSwNCiAgew0KICAgImNlbGxfdHlwZSI6ICJtYXJrZG93biIsDQogICAiaWQiOiAiZDcyNmZiNzAiLA0KICAgIm1ldGFkYXRhIjoge30sDQogICAic291cmNlIjogIiMjIDjri6jqs4QuIOqysOqzvCDsoIDsnqVcblxu7JWE656YIDPqsJwg7YyM7J287J2EIOunjOuTreuLiOuLpC5cblxuLSBgZGF0YV9kaWN0aW9uYXJ5LmNzdmAg4oCUIOq1rOyEseybkOuzhCDrjbDsnbTthLDsgqzsoIQg7JqU7JW97ZGcXG4tIGBjaHJvbV9kaXN0cmlidXRpb24uY3N2YCDigJQg7Je87IOJ7LK067OEIFNOUCDqsJzsiJgg7ZGcXG4tIGBtZXJnZWRfZmFtaWx5X2dlbm9tZS5jc3YuZ3pgIOKAlCByc2lkIOq4sOykgOycvOuhnCDrs5HtlanrkJwgNeyduCDsnKDsoITtmJUg7YWM7J2067iUICjsoITsspjrpqzCt+yduOyCrOydtO2KuCDri6jqs4Tsl5DshJwg7J6s7IKs7JqpKVxuLSBgcHJlcHJvY2Vzc19sb2cudHh0YCDigJQg7KCE7LKY66asIOqzvOyglSDroZzqt7giDQogIH0sDQogIHsNCiAgICJjZWxsX3R5cGUiOiAiY29kZSIsDQogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwNCiAgICJpZCI6ICIyMThjNTQyNCIsDQogICAibWV0YWRhdGEiOiB7fSwNCiAgICJvdXRwdXRzIjogW10sDQogICAic291cmNlIjogImRhdGFfZGljdGlvbmFyeS50b19jc3YoJ2RhdGFfZGljdGlvbmFyeS5jc3YnLCBpbmRleD1GYWxzZSwgZW5jb2Rpbmc9J3V0Zi04LXNpZycpXG5jaHJvbV9kaXN0cmlidXRpb24udG9fY3N2KCdjaHJvbV9kaXN0cmlidXRpb24uY3N2JywgZW5jb2Rpbmc9J3V0Zi04LXNpZycpXG5tZXJnZWRfZnVsbC50b19jc3YoJ21lcmdlZF9mYW1pbHlfZ2Vub21lLmNzdi5neicsIGluZGV4PUZhbHNlLCBjb21wcmVzc2lvbj0nZ3ppcCcpXG5cbndpdGggb3BlbigncHJlcHJvY2Vzc19sb2cudHh0JywgJ3cnLCBlbmNvZGluZz0ndXRmLTgnKSBhcyBmOlxuICAgIGYud3JpdGUoJ1xcbicuam9pbihsb2dfbGluZXMpKVxuXG5wcmludChcIuyggOyepSDsmYTro4w6XCIpXG5wcmludChcIiAtIGRhdGFfZGljdGlvbmFyeS5jc3ZcIilcbnByaW50KFwiIC0gY2hyb21fZGlzdHJpYnV0aW9uLmNzdlwiKVxucHJpbnQoXCIgLSBtZXJnZWRfZmFtaWx5X2dlbm9tZS5jc3YuZ3ogIChcIiwgbGVuKG1lcmdlZF9mdWxsKSwgXCLtlokgeFwiLCBtZXJnZWRfZnVsbC5zaGFwZVsxXSwgXCLsl7QgKVwiKVxucHJpbnQoXCIgLSBwcmVwcm9jZXNzX2xvZy50eHRcIikiDQogIH0sDQogIHsNCiAgICJjZWxsX3R5cGUiOiAibWFya2Rvd24iLA0KICAgImlkIjogIjM2YjUwYzViIiwNCiAgICJtZXRhZGF0YSI6IHt9LA0KICAgInNvdXJjZSI6ICIjIyA564uo6rOEICjshKDtg50pLiDqsrDqs7wg7YyM7J28IOuLpOyatOuhnOuTnFxuXG5Db2xhYuyXkOyEnCDsi6Ttlokg7KSR7J20652866m0IOyVhOuemCDshYDroZwg6rKw6rO8IO2MjOydvOydhCDroZzsu6wg7Lu07ZOo7YSw7JeQIOuwlOuhnCDrgrTroKTrsJvsnYQg7IiYIOyeiOyKteuLiOuLpC4iDQogIH0sDQogIHsNCiAgICJjZWxsX3R5cGUiOiAiY29kZSIsDQogICAiZXhlY3V0aW9uX2NvdW50IjogbnVsbCwNCiAgICJpZCI6ICJmODQ1MjBmNyIsDQogICAibWV0YWRhdGEiOiB7fSwNCiAgICJvdXRwdXRzIjogW10sDQogICAic291cmNlIjogInRyeTpcbiAgICBmcm9tIGdvb2dsZS5jb2xhYiBpbXBvcnQgZmlsZXNcbiAgICBmb3IgZm5hbWUgaW4gWydkYXRhX2RpY3Rpb25hcnkuY3N2JywgJ2Nocm9tX2Rpc3RyaWJ1dGlvbi5jc3YnLCAnbWVyZ2VkX2ZhbWlseV9nZW5vbWUuY3N2Lmd6JywgJ3ByZXByb2Nlc3NfbG9nLnR4dCddOlxuICAgICAgICBmaWxlcy5kb3dubG9hZChmbmFtZSlcbmV4Y2VwdCBJbXBvcnRFcnJvcjpcbiAgICBwcmludChcIkNvbGFi7J20IOyVhOuLjCDtmZjqsr3sl5DshJzripQg7YyM7J287J20IOydtOuvuCDtmITsnqwg7Y+0642U7JeQIOyggOyepeuQmOyWtCDsnojsirXri4jri6QuXCIpIg0KICB9LA0KICB7DQogICAiY2VsbF90eXBlIjogIm1hcmtkb3duIiwNCiAgICJpZCI6ICJjNTFiNDRkNiIsDQogICAibWV0YWRhdGEiOiB7fSwNCiAgICJzb3VyY2UiOiAiIyMg7KCV66asXG5cbuydtCDrhbjtirjrtoHsl5DshJwg66eM65OgIGBtZXJnZWRfZmFtaWx5X2dlbm9tZS5jc3YuZ3pgKHJzaWQg6riw7KSAIDXsnbgg67OR7ZWpIO2FjOydtOu4lCnsmYAgYGRhdGFfZGljdGlvbmFyeS5jc3Zg64qUIOydtO2bhCDri6jqs4TsnbggKirsi5zqsIHtmZQqKijsl7zsg4nssrTrs4QgU05QIOu2hO2PrCwg7J207ZiV7KCR7ZWpIOu5hOycqCwg6rCA7KGxIOqwhCDsnbzsuZjsnKgg7Z6I7Yq466e1LCDrjbTrk5zroZzqt7jrnqgg65OxKeyZgCAqKuyduOyCrOydtO2KuCDrtoTshJ0qKijrqZjrjbgg7Jyg7KCEIOuyley5mSDqsoDspp0sIOu2gOuqqCDquLDsm5Ag7LaU7KCVLCDtmJXsoJzsnpDrp6Qg7Jyg7IKs64+EIOu5hOq1kCDrk7Ep7J2YIOyeheugpSDrjbDsnbTthLDroZwg6re464yA66GcIOydtOyWtOyEnCDsgqzsmqntlaAg7IiYIOyeiOyKteuLiOuLpC5cblxuPiDssLjqs6A6IOydtCDrjbDsnbTthLDshYvsnYAg66+47ISx64WEIOyekOuFgOqwgCDtj6ztlajrkJwg6rCA7KGxIOycoOyghOyytOydtOuvgOuhnCwg7KeI67ORIOychO2XmMK367mE66eMwrfsnbjsp4DriqXroKUg65OxIOyYiOy4oeyggSDtlajsnZjrpbwg6rCA7KeA64qUIFNOUOydgCDsnbTtm4Qg67aE7ISd7JeQ7ISc64+EIOuLpOujqOyngCDslYrripQg6rKD7J2EIOq2jOyepe2VqeuLiOuLpC4iDQogIH0NCiBdLA0KICJtZXRhZGF0YSI6IHsNCiAgImNvbGFiIjogew0KICAgIm5hbWUiOiAi6rCA7KGxX+ycoOyghOyytF/rjbDsnbTthLBf7KCE7LKY66asLmlweW5iIiwNCiAgICJwcm92ZW5hbmNlIjogW10NCiAgfSwNCiAgImtlcm5lbHNwZWMiOiB7DQogICAiZGlzcGxheV9uYW1lIjogIlB5dGhvbiAzIiwNCiAgICJsYW5ndWFnZSI6ICJweXRob24iLA0KICAgIm5hbWUiOiAicHl0aG9uMyINCiAgfSwNCiAgImxhbmd1YWdlX2luZm8iOiB7DQogICAibmFtZSI6ICJweXRob24iLA0KICAgInZlcnNpb24iOiAiMyINCiAgfQ0KIH0sDQogIm5iZm9ybWF0IjogNCwNCiAibmJmb3JtYXRfbWlub3IiOiA1DQp9' }
+    ];
+
+    /* 최종 보고서(04) 항목: 지금 업로드한 PDF로 설정 */
+    files.s4 = [
+      { name: '가족_유전체_최종보고서.pdf', type: 'application/pdf', url: 'uploads/%EA%B0%80%EC%A1%B1_%EC%9C%A0%EC%A0%84%EC%B2%B4_%EC%B5%9C%EC%A2%85%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf' }
+    ];
+
+    /* AI와의 멀티턴(05) 항목: 지금 업로드한 md로 설정 */
+    files.s5 = [
+      { name: 'AI와의_멀티턴_대화_요약.md', type: 'text/markdown', url: 'uploads/AI%EC%99%80%EC%9D%98_%EB%A9%80%ED%8B%B0%ED%84%B4_%EB%8C%80%ED%99%94_%EC%9A%94%EC%95%BD.md' }
+    ];
+
+    try { localStorage.setItem(FILES_KEY, JSON.stringify(files)); } catch (e) {}
+
+    function saveFiles() {
+      try { localStorage.setItem(FILES_KEY, JSON.stringify(files)); } catch (e) {}
+    }
+
+    function openFileRecord(rec) {
+      if (rec.dataUrl) {
+        const w = window.open();
+        if (w) w.location.href = rec.dataUrl;
+      } else if (rec.url) {
+        window.open(rec.url, '_blank');
       }
     }
 
-    function openFile(id) {
-      const rec = files[id];
-      if (rec && rec.dataUrl) {
-        const w = window.open();
-        if (w) w.location.href = rec.dataUrl;
-        return true;
-      }
-      if (rec && rec.url) {
-        window.open(rec.url, '_blank');
-        return true;
-      }
-      const sess = sessionFileUrls[id];
-      if (sess) {
-        window.open(sess.url, '_blank');
-        return true;
-      }
-      return false;
+    function renderFileList(id) {
+      const container = document.querySelector('.submit-item[data-id="' + id + '"]');
+      if (!container) return;
+      const listEl = container.querySelector('.file-list');
+      const records = files[id] || [];
+      listEl.innerHTML = '';
+
+      records.forEach((rec, idx) => {
+        const row = document.createElement('div');
+        row.className = 'file-status';
+
+        const text = document.createElement('span');
+        text.className = 'file-status-text';
+        text.textContent = '📎 ' + rec.name;
+        text.addEventListener('click', () => openFileRecord(rec));
+
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'file-remove';
+        removeBtn.setAttribute('aria-label', '파일 제거');
+        removeBtn.textContent = '×';
+        removeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          records.splice(idx, 1);
+          saveFiles();
+          renderFileList(id);
+        });
+
+        row.appendChild(text);
+        row.appendChild(removeBtn);
+        listEl.appendChild(row);
+      });
+
+      const addRow = document.createElement('div');
+      addRow.className = 'file-status empty';
+      const addText = document.createElement('span');
+      addText.className = 'file-status-text';
+      addText.textContent = records.length ? '+ 파일 추가' : 'Upload';
+      addRow.appendChild(addText);
+      addRow.addEventListener('click', () => {
+        container.querySelector('.file-input').click();
+      });
+      listEl.appendChild(addRow);
+
+      container.classList.toggle('has-file', records.length > 0);
     }
 
     document.querySelectorAll('.file-input').forEach(input => {
       input.addEventListener('change', () => {
         const container = input.closest('[data-id]');
         const id = container.dataset.id;
-        const file = input.files[0];
+        const selected = Array.from(input.files);
         input.value = '';
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = () => {
-          try {
-            files[id] = { name: file.name, type: file.type, dataUrl: reader.result };
-            localStorage.setItem(FILES_KEY, JSON.stringify(files));
-          } catch (err) {
-            delete files[id];
-            if (sessionFileUrls[id]) URL.revokeObjectURL(sessionFileUrls[id].url);
-            sessionFileUrls[id] = { url: URL.createObjectURL(file), name: file.name };
-          }
-          updateFileStatus(id);
-        };
-        reader.readAsDataURL(file);
+        if (!selected.length) return;
+        if (!files[id]) files[id] = [];
+        let remaining = selected.length;
+        selected.forEach(file => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            try {
+              files[id].push({ name: file.name, type: file.type, dataUrl: reader.result });
+              saveFiles();
+            } catch (err) {
+              files[id].push({ name: file.name, type: file.type, url: URL.createObjectURL(file) });
+            }
+            remaining--;
+            if (remaining === 0) renderFileList(id);
+          };
+          reader.readAsDataURL(file);
+        });
       });
     });
 
-    document.querySelectorAll('.file-remove').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const container = btn.closest('[data-id]');
-        const id = container.dataset.id;
-        delete files[id];
-        if (sessionFileUrls[id]) { URL.revokeObjectURL(sessionFileUrls[id].url); delete sessionFileUrls[id]; }
-        try { localStorage.setItem(FILES_KEY, JSON.stringify(files)); } catch (err) {}
-        updateFileStatus(id);
-      });
-    });
-
-    document.querySelectorAll('.file-status').forEach(statusEl => {
-      statusEl.addEventListener('click', () => {
-        const container = statusEl.closest('[data-id]');
-        const id = container.dataset.id;
-        const opened = openFile(id);
-        if (!opened) {
-          const input = container.querySelector('.file-input');
-          if (input) input.click();
-        }
-      });
-    });
+    document.querySelectorAll('.submit-item').forEach(el => renderFileList(el.dataset.id));
 
     /* 항목 이름: 한 번 클릭 = 이름 수정, 더블클릭 유지 안 함 (제목 자체는 자유 편집) */
     document.querySelectorAll('.submit-name.title-trigger').forEach(el => {
       el.setAttribute('contenteditable', 'true');
     });
-
-    document.querySelectorAll('[data-id]').forEach(el => updateFileStatus(el.dataset.id));
   </script>
 
 
