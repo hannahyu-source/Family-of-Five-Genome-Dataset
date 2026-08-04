@@ -90,31 +90,31 @@
 
   .eyebrow {
     display: inline-block;
-    font-size: 13px;
+    font-size: 14.3px;
     font-weight: 700;
     color: var(--red);
     letter-spacing: 0.03em;
-    margin-bottom: 18px;
-    padding: 2px 6px;
+    margin-bottom: 8px;
+    padding: 2.2px 6.6px;
   }
 
   h1 {
-    font-size: 56px;
+    font-size: 61.6px;
     font-weight: 900;
     letter-spacing: -0.01em;
     color: var(--green);
-    margin-bottom: 14px;
-    padding: 2px 6px;
+    margin-bottom: 6px;
+    padding: 2.2px 6.6px;
     display: block;
     min-height: 1.15em;
   }
 
   .subtitle {
-    font-size: 16px;
+    font-size: 17.6px;
     font-weight: 500;
     color: var(--blue);
-    margin-bottom: 48px;
-    padding: 2px 6px;
+    margin-bottom: 20px;
+    padding: 2.2px 6.6px;
     display: block;
   }
 
@@ -122,25 +122,25 @@
   .main-layout {
     display: grid;
     grid-template-columns: 1fr 260px;
-    gap: 56px;
+    gap: 61.6px;
     align-items: start;
   }
 
   .items-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 44px 40px;
+    gap: 48.4px 44px;
   }
 
   .item-head {
     display: flex;
     align-items: baseline;
-    gap: 10px;
-    margin-bottom: 14px;
+    gap: 11px;
+    margin-bottom: 15.4px;
   }
 
   .item-num {
-    font-size: 56px;
+    font-size: 61.6px;
     font-weight: 900;
     color: var(--red);
     line-height: 1;
@@ -148,10 +148,10 @@
   }
 
   .item-title {
-    font-size: 21px;
+    font-size: 23.1px;
     font-weight: 800;
     color: var(--text-white);
-    padding: 2px 6px;
+    padding: 2.2px 6.6px;
   }
 
   .bullets {
@@ -161,8 +161,8 @@
 
   .bullets li {
     position: relative;
-    padding: 3px 0 3px 15px;
-    font-size: 13.5px;
+    padding: 3.3px 0 3.3px 16.5px;
+    font-size: 14.85px;
     color: var(--text-gray);
   }
 
@@ -170,9 +170,9 @@
     content: "";
     position: absolute;
     left: 0;
-    top: 12px;
-    width: 4px;
-    height: 4px;
+    top: 13.2px;
+    width: 4.4px;
+    height: 4.4px;
     border-radius: 50%;
     background: var(--red);
   }
@@ -182,29 +182,29 @@
   /* ---------- sidebar ---------- */
   .sidebar {
     border-left: 1px solid var(--divider);
-    padding-left: 40px;
+    padding-left: 44px;
   }
 
   .sidebar-title {
-    font-size: 13px;
+    font-size: 14.3px;
     font-weight: 700;
     letter-spacing: 0.18em;
     color: var(--text-gray);
-    margin-bottom: 22px;
+    margin-bottom: 24.2px;
   }
 
   .submit-item {
     display: grid;
-    grid-template-columns: 32px 1fr;
-    gap: 14px;
-    padding: 16px 0;
+    grid-template-columns: 35.2px 1fr;
+    gap: 15.4px;
+    padding: 17.6px 0;
     border-bottom: 1px solid var(--divider);
     align-items: start;
   }
   .submit-item:first-child { padding-top: 0; }
 
   .submit-num {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 800;
     color: var(--red);
     line-height: 1.3;
@@ -213,21 +213,21 @@
   .submit-body { text-align: right; }
 
   .submit-name {
-    font-size: 14.5px;
+    font-size: 15.95px;
     font-weight: 700;
     color: var(--text-white);
-    padding: 2px 4px;
+    padding: 2.2px 4.4px;
   }
 
   .file-list {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 4.4px;
   }
 
   .file-status {
-    margin-top: 4px;
-    font-size: 12.5px;
+    margin-top: 4.4px;
+    font-size: 13.75px;
     cursor: pointer;
   }
 
@@ -246,9 +246,9 @@
     background: none;
     color: var(--text-gray);
     cursor: pointer;
-    font-size: 13px;
+    font-size: 14.3px;
     line-height: 1;
-    padding: 0 0 0 6px;
+    padding: 0 0 0 6.6px;
     opacity: 0.6;
   }
   .file-remove:hover { opacity: 1; }
@@ -462,7 +462,8 @@
       if (files[id] && !Array.isArray(files[id])) files[id] = [files[id]];
     });
 
-    /* 데이터셋(01) 항목: 지금 업로드한 5개 가족 유전체 CSV로 설정 */
+    /* 5개 항목 모두 지정된 URL로 기본 링크 설정 */
+    const targetUrl = 'https://hannahyu-source.github.io/Family-of-Five-Genome-Dataset/';
     files.s1 = [
       { name: 'Father Genome.csv', type: 'text/csv', url: 'uploads/Father%20Genome.csv' },
       { name: 'Mother Genome.csv', type: 'text/csv', url: 'uploads/Mother%20Genome.csv' },
@@ -470,13 +471,16 @@
       { name: 'Child 2 Genome.csv', type: 'text/csv', url: 'uploads/Child%202%20Genome.csv' },
       { name: 'Child 3 Genome.csv', type: 'text/csv', url: 'uploads/Child%203%20Genome.csv' }
     ];
-
-    /* 시각화 대시보드(03) 항목: 배포된 대시보드 URL */
-    if (!files.s3 || !files.s3.length) {
-      files.s3 = [
-        { name: '시각화 대시보드', type: 'text/html', url: 'https://hannahyu-source.github.io/Family-of-Five-Genome-Dataset' }
-      ];
-    }
+    files.s2 = [
+      { name: '가족_유전체_데이터_전처리.ipynb', type: 'application/x-ipynb+json', url: 'uploads/%EA%B0%80%EC%A1%B1_%EC%9C%A0%EC%A0%84%EC%B2%B4_%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%A0%84%EC%B2%98%EB%A6%AC.ipynb' }
+    ];
+    files.s3 = [{ name: '시각화 대시보드 연결', type: 'text/html', url: targetUrl }];
+    files.s4 = [
+      { name: '가족_유전체_최종보고서.pdf', type: 'application/pdf', url: 'uploads/%EA%B0%80%EC%A1%B1_%EC%9C%A0%EC%A0%84%EC%B2%B4_%EC%B5%9C%EC%A2%85%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf' }
+    ];
+    files.s5 = [
+      { name: 'AI와의_멀티턴_대화_요약.md', type: 'text/markdown', url: 'uploads/AI%EC%99%80%EC%9D%98_%EB%A9%80%ED%8B%B0%ED%84%B4_%EB%8C%80%ED%99%94_%EC%9A%94%EC%95%BD.md' }
+    ];
 
     try { localStorage.setItem(FILES_KEY, JSON.stringify(files)); } catch (e) {}
 
