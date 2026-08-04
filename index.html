@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)file:///C:/WISET-AI/practice-guide/index.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family of Five – Genome Dataset</title>
+<style>
+  :root {
+    --bg: #12161d;
+    --bg-panel: #171c24;
+    --red: #ef4a37;
+    --green: #d7f23c;
+    --blue: #4bc3e6;
+    --text-white: #f5f6f8;
+    --text-gray: #9aa3ad;
+    --divider: rgba(255,255,255,0.09);
+    --dot: rgba(255,255,255,0.14);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { background: var(--bg); }
+
+  body {
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-white);
+    line-height: 1.55;
+    word-break: keep-all;
+    padding: 56px 64px 56px 96px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ---------- left rail ---------- */
+  .side-rail {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 26px;
+    height: 100vh;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+  }
+  .side-rail span {
+    display: inline-block;
+    transform: rotate(-90deg);
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.25em;
+    color: rgba(18, 22, 29, 0.55);
+  }
+
+  /* ---------- decorative dot grid ---------- */
+  .dot-grid {
+    position: absolute;
+    top: 40px;
+    right: 56px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    width: 110px;
+    pointer-events: none;
+  }
+  .dot-grid span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--dot);
+  }
+
+  /* ---------- editable fields ---------- */
+  [contenteditable] {
+    outline: none;
+    border-radius: 6px;
+    transition: background 0.15s ease, box-shadow 0.15s ease;
+  }
+  [contenteditable]:hover { background: rgba(255, 255, 255, 0.05); }
+  [contenteditable]:focus { background: rgba(255, 255, 255, 0.08); box-shadow: 0 0 0 2px rgba(255,255,255,0.15); }
+  [contenteditable]:empty:before {
+    content: attr(data-placeholder);
+    color: var(--text-gray);
+    opacity: 0.6;
+  }
+
+  .wrap { max-width: 1440px; margin: 0 auto; }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 0.03em;
+    margin-bottom: 18px;
+    padding: 2px 6px;
+  }
+
+  h1 {
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    color: var(--green);
+    margin-bottom: 14px;
+    padding: 2px 6px;
+    display: block;
+    min-height: 1.15em;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--blue);
+    margin-bottom: 48px;
+    padding: 2px 6px;
+    display: block;
+  }
+
+  /* ---------- main layout ---------- */
+  .main-layout {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 44px 40px;
+  }
+
+  .item-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .item-num {
+    font-size: 56px;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .item-title {
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--text-white);
+    padding: 2px 6px;
+  }
+
+  .bullets {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .bullets li {
+    position: relative;
+    padding: 3px 0 3px 15px;
+    font-size: 13.5px;
+    color: var(--text-gray);
+  }
+
+  .bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+
+  .bullets b { color: var(--text-white); font-weight: 700; }
+
+  /* ---------- sidebar ---------- */
+  .sidebar {
+    border-left: 1px solid var(--divider);
+    padding-left: 40px;
+  }
+
+  .sidebar-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--text-gray);
+    margin-bottom: 22px;
+  }
+
+  .submit-item {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--divider);
+    align-items: start;
+  }
+  .submit-item:first-child { padding-top: 0; }
+
+  .submit-num {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--red);
+    line-height: 1.3;
+  }
+
+  .submit-body { text-align: right; }
+
+  .submit-name {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--text-white);
+    padding: 2px 4px;
+  }
+
+  .file-status {
+    margin-top: 4px;
+    font-size: 12.5px;
+    cursor: pointer;
+  }
+
+  .file-status-text {
+    color: var(--red);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .file-status:not(.empty) .file-status-text {
+    color: var(--text-gray);
+    text-decoration: underline;
+  }
+
+  .file-remove {
+    border: none;
+    background: none;
+    color: var(--text-gray);
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    padding: 0 0 0 6px;
+    opacity: 0.6;
+  }
+  .file-remove:hover { opacity: 1; }
+  .file-status.empty .file-remove { display: none; }
+
+  .file-input { display: none; }
+
+  @media (max-width: 1100px) {
+    .main-layout { grid-template-columns: 1fr; }
+    .sidebar { border-left: none; border-top: 1px solid var(--divider); padding-left: 0; padding-top: 32px; }
+    .items-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 48px 24px 48px 56px; }
+    h1 { font-size: 38px; }
+    .items-grid { grid-template-columns: 1fr; }
+    .dot-grid { display: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="side-rail"><span>AGENDA</span></div>
+  <div class="dot-grid">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="wrap">
+    <div class="eyebrow" contenteditable="true" data-field="eyebrow" data-placeholder="데이터 기반 분석 및 인사이트 도출 보고서 작성">데이터 기반 분석 및 인사이트 도출 보고서 작성</div>
+    <h1 contenteditable="true" data-field="title" data-placeholder="제목을 입력하세요">Family of Five – Genome Dataset</h1>
+    <p class="subtitle" contenteditable="true" data-field="subtitle" data-placeholder="부제목을 입력하세요">Zeeshan-ul-hassan Usmani's Genome Phenotype SNPs Raw Data</p>
+
+    <div class="main-layout">
+      <div class="items-grid">
+
+        <div class="item">
+          <div class="item-head">
+            <span class="item-num">01</span>
+            <span class="item-title" contenteditable="true" data-field="item1-title" data-placeholder="항목 제목">데이터 분석</span>
+          </div>
+          <ul class="bullets" contenteditable="true" data-field="item1-body">
+            <li>Zeeshan-ul-hassan Usmani가 공개한 "My Complete Genome"이라는 개인 유전체 데이터</li>
+            <li>23andMe 유전자 검사 결과: <b>rsid</b>(SNP 식별자), 염색체 번호, 염기 위치(position), 유전형(genotype) 형태의 표 구조</li>
+            <li>후속·연계 데이터 "Family of Five – Genome Dataset"</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <span class="item-num">02</span>
+            <span class="item-title" contenteditable="true" data-field="item2-title" data-placeholder="항목 제목">분석 질문</span>
+          </div>
+          <ul class="bullets" contenteditable="true" data-field="item2-body">
+            <li>부모의 조상 기원(ancestry) 마커는 서로 얼마나 일치하는가?</li>
+            <li>특정 형질을 결정하는 유전자가 어떻게 유전되는가?</li>
+            <li>서구 데이터셋과의 비교했을 때 <b>GWAS</b>와의 일치도와 예측정확도는?</li>
+            <li>혈연관계가 확인된 부모와 자녀로 구성된 2세대 가족 유전체 데이터의 연구적 가치와 차별성은?</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <span class="item-num">03</span>
+            <span class="item-title" contenteditable="true" data-field="item3-title" data-placeholder="항목 제목">데이터 사전</span>
+          </div>
+          <ul class="bullets" contenteditable="true" data-field="item3-body">
+            <li>데이터의 열 이름, 의미, 단위, 데이터형, 결측, 이상치</li>
+            <li><b>SNP</b>(유전자 마커) 총 개수</li>
+            <li>염색체(<b>chromosome</b>)별 분포</li>
+            <li>유전자형(<b>genotype</b>) 구성</li>
+            <li>결측치/노콜(<b>no-call</b>) 비율</li>
+            <li>성염색체(X, Y)와 미토콘드리아(<b>MT</b>) 데이터 유무</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <span class="item-num">04</span>
+            <span class="item-title" contenteditable="true" data-field="item4-title" data-placeholder="항목 제목">전처리 로그</span>
+          </div>
+          <ul class="bullets" contenteditable="true" data-field="item4-body">
+            <li>인코딩/헤더 정리</li>
+            <li>결측/노콜</li>
+            <li><b>position, chromosome</b> 타입 변환</li>
+            <li>이형접합 여부</li>
+            <li>5개 파일을 <b>rsid</b> 기준으로 병합(merge)</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <span class="item-num">05</span>
+            <span class="item-title" contenteditable="true" data-field="item5-title" data-placeholder="항목 제목">시각화</span>
+          </div>
+          <ul class="bullets" contenteditable="true" data-field="item5-body">
+            <li>염색체별 SNP 개수 막대그래프 (구성원별 비교)</li>
+            <li>이형접합 비율 비교 막대그래프 (아빠/엄마/자녀1/2/3)</li>
+            <li>가족 구성원 간 유전자형 일치율 히트맵 (rsid 교집합 기준으로 누가 누구와 더 비슷한지)</li>
+            <li>특정 염색체의 <b>position</b>별 <b>genotype</b> 분포 산점도</li>
+            <li>형제자매 3명 간 유사도를 비교하는 <b>클러스터링/덴드로그램</b></li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <span class="item-num">06</span>
+            <span class="item-title" contenteditable="true" data-field="item6-title" data-placeholder="항목 제목">인사이트</span>
+          </div>
+          <ul class="bullets" contenteditable="true" data-field="item6-body">
+            <li>멘델 유전 법칙 검증 - 부모 기원 추정</li>
+            <li>형제자매 간 유전적 유사도</li>
+            <li>이형접합도(<b>heterozygosity</b>) 비교</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="sidebar">
+        <div class="sidebar-title" contenteditable="true" data-field="sidebar-title" data-placeholder="SUBMIT FILES">SUBMIT FILES</div>
+
+        <div class="submit-item has-file" data-id="s1">
+          <span class="submit-num">01</span>
+          <div class="submit-body">
+            <div class="submit-name title-trigger" contenteditable="true" data-field="s1-name" data-placeholder="항목 이름">데이터셋</div>
+            <div class="file-status">
+              <span class="file-status-text">📎 Family Genome.csv</span><button type="button" class="file-remove" aria-label="파일 제거">×</button>
+            </div>
+            <input type="file" class="file-input" hidden="">
+          </div>
+        </div>
+
+        <div class="submit-item has-file" data-id="s2">
+          <span class="submit-num">02</span>
+          <div class="submit-body">
+            <div class="submit-name title-trigger" contenteditable="true" data-field="s2-name" data-placeholder="항목 이름">전처리 코랩 파일</div>
+            <div class="file-status">
+              <span class="file-status-text">📎 가족_유전체_데이터_전처리.ipynb</span><button type="button" class="file-remove" aria-label="파일 제거">×</button>
+            </div>
+            <input type="file" class="file-input" hidden="">
+          </div>
+        </div>
+
+        <div class="submit-item" data-id="s3">
+          <span class="submit-num">03</span>
+          <div class="submit-body">
+            <div class="submit-name title-trigger" contenteditable="true" data-field="s3-name" data-placeholder="항목 이름">시각화 대시보드</div>
+            <div class="file-status empty">
+              <span class="file-status-text">Upload</span><button type="button" class="file-remove" aria-label="파일 제거">×</button>
+            </div>
+            <input type="file" class="file-input" hidden="">
+          </div>
+        </div>
+
+        <div class="submit-item has-file" data-id="s4">
+          <span class="submit-num">04</span>
+          <div class="submit-body">
+            <div class="submit-name title-trigger" contenteditable="true" data-field="s4-name" data-placeholder="항목 이름">최종 보고서</div>
+            <div class="file-status">
+              <span class="file-status-text">📎 가족_유전체_최종보고서.pdf</span><button type="button" class="file-remove" aria-label="파일 제거">×</button>
+            </div>
+            <input type="file" class="file-input" hidden="">
+          </div>
+        </div>
+
+        <div class="submit-item has-file" data-id="s5">
+          <span class="submit-num">05</span>
+          <div class="submit-body">
+            <div class="submit-name title-trigger" contenteditable="true" data-field="s5-name" data-placeholder="항목 이름">AI와의 멀티턴</div>
+            <div class="file-status">
+              <span class="file-status-text">📎 AI와의_멀티턴_대화_요약.md</span><button type="button" class="file-remove" aria-label="파일 제거">×</button>
+            </div>
+            <input type="file" class="file-input" hidden="">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ---- 사용자가 입력하는 내용 저장 ---- */
+    const CONTENT_KEY = 'wiset-practice-guide-content-v4';
+    let content = {};
+    try { content = JSON.parse(localStorage.getItem(CONTENT_KEY)) || {}; } catch (e) { content = {}; }
+
+    document.querySelectorAll('[data-field]').forEach(el => {
+      const field = el.dataset.field;
+      const isList = el.tagName === 'UL';
+
+      if (Object.prototype.hasOwnProperty.call(content, field)) {
+        if (isList) el.innerHTML = content[field];
+        else el.textContent = content[field];
+      }
+
+      el.addEventListener('input', () => {
+        const value = isList ? el.innerHTML : el.textContent;
+        content[field] = value;
+        localStorage.setItem(CONTENT_KEY, JSON.stringify(content));
+      });
+
+      if (!isList) {
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            el.blur();
+          }
+        });
+      }
+    });
+
+    /* ---- 제출 항목별 파일 업로드 / 열기 ---- */
+    const FILES_KEY = 'wiset-practice-guide-files-v3';
+    const DEFAULT_FILES = {
+      s1: { name: 'archive.zip', type: 'application/zip', url: 'uploads/archive.zip' }
+    };
+    let files = Object.assign({}, DEFAULT_FILES);
+    try {
+      const stored = JSON.parse(localStorage.getItem(FILES_KEY)) || {};
+      files = Object.assign({}, DEFAULT_FILES, stored);
+    } catch (e) {}
+    const sessionFileUrls = {};
+
+    function updateFileStatus(id) {
+      const rec = files[id] || sessionFileUrls[id];
+      const container = document.querySelector('.submit-item[data-id="' + id + '"]');
+      if (!container) return;
+      const statusEl = container.querySelector('.file-status');
+      const textEl = statusEl.querySelector('.file-status-text');
+      if (rec) {
+        textEl.textContent = '📎 ' + rec.name;
+        statusEl.classList.remove('empty');
+        container.classList.add('has-file');
+      } else {
+        textEl.textContent = 'Upload';
+        statusEl.classList.add('empty');
+        container.classList.remove('has-file');
+      }
+    }
+
+    function openFile(id) {
+      const rec = files[id];
+      if (rec && rec.dataUrl) {
+        const w = window.open();
+        if (w) w.location.href = rec.dataUrl;
+        return true;
+      }
+      if (rec && rec.url) {
+        window.open(rec.url, '_blank');
+        return true;
+      }
+      const sess = sessionFileUrls[id];
+      if (sess) {
+        window.open(sess.url, '_blank');
+        return true;
+      }
+      return false;
+    }
+
+    document.querySelectorAll('.file-input').forEach(input => {
+      input.addEventListener('change', () => {
+        const container = input.closest('[data-id]');
+        const id = container.dataset.id;
+        const file = input.files[0];
+        input.value = '';
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            files[id] = { name: file.name, type: file.type, dataUrl: reader.result };
+            localStorage.setItem(FILES_KEY, JSON.stringify(files));
+          } catch (err) {
+            delete files[id];
+            if (sessionFileUrls[id]) URL.revokeObjectURL(sessionFileUrls[id].url);
+            sessionFileUrls[id] = { url: URL.createObjectURL(file), name: file.name };
+          }
+          updateFileStatus(id);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    document.querySelectorAll('.file-remove').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const container = btn.closest('[data-id]');
+        const id = container.dataset.id;
+        delete files[id];
+        if (sessionFileUrls[id]) { URL.revokeObjectURL(sessionFileUrls[id].url); delete sessionFileUrls[id]; }
+        try { localStorage.setItem(FILES_KEY, JSON.stringify(files)); } catch (err) {}
+        updateFileStatus(id);
+      });
+    });
+
+    document.querySelectorAll('.file-status').forEach(statusEl => {
+      statusEl.addEventListener('click', () => {
+        const container = statusEl.closest('[data-id]');
+        const id = container.dataset.id;
+        const opened = openFile(id);
+        if (!opened) {
+          const input = container.querySelector('.file-input');
+          if (input) input.click();
+        }
+      });
+    });
+
+    /* 항목 이름: 한 번 클릭 = 이름 수정, 더블클릭 유지 안 함 (제목 자체는 자유 편집) */
+    document.querySelectorAll('.submit-name.title-trigger').forEach(el => {
+      el.setAttribute('contenteditable', 'true');
+    });
+
+    document.querySelectorAll('[data-id]').forEach(el => updateFileStatus(el.dataset.id));
+  </script>
+
+
+</body></html>
