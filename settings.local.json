@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"C:/WISET-AI/practice-guide/uploads\" && cp \"C:/Users/yuhan/Downloads/archive.zip\" \"C:/WISET-AI/practice-guide/uploads/archive.zip\" && ls -la \"C:/WISET-AI/practice-guide/uploads\")",
+      "Bash(powershell -Command \"Get-ChildItem 'C:\\\\Users\\\\yuhan\\\\Downloads\\\\archive' -Filter '*.csv' | Select-Object Name, Length\")",
+      "Bash(powershell -Command \"\\(Get-Item 'C:\\\\Users\\\\yuhan\\\\Downloads\\\\가족_유전체_데이터_전처리.ipynb'\\).Length\")",
+      "Bash(base64 -w0 \"C:/Users/yuhan/Downloads/가족_유전체_데이터_전처리.ipynb\")",
+      "Bash(python3 -c ' *)"
+    ]
+  }
+}
